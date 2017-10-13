@@ -2,7 +2,8 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
+
+import logo from './assets/logo.png'
 
 const styles = theme => ({
   root: {
@@ -20,9 +21,7 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Ma Perma
-          </Typography>
+          <img src={logo} alt='logo' />
         </Toolbar>
       </AppBar>
     </div>

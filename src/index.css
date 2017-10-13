@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+[role=button] {
+  cursor: pointer;
+}
+
+.app-content {
+  max-width: 825px;
+  margin: 30px auto;
+}
