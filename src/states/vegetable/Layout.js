@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import * as Vegetable from '../../resources/Vegetable'
 import Breadcrumb from '../../layout/Breadcrumb'
+import {Content} from '../../layout/ContentElements'
 import Typography from 'material-ui/Typography'
 
 const styles = {
@@ -29,7 +30,7 @@ class Layout extends React.Component {
     if (!this.state.vegetable) return null
     const {classes} = this.props
     return (
-      <div className='app-content'>
+      <Content>
         <Breadcrumb path={[
           {
             state: '/vegetables',
@@ -45,7 +46,7 @@ class Layout extends React.Component {
         <div className={classes.body}>
           <img src={this.state.vegetable.img} alt='vegetable' className={classes.image} />
         </div>
-      </div>
+      </Content>
     )
   }
 }

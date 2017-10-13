@@ -7,8 +7,3 @@ body {
 [role=button] {
   cursor: pointer;
 }
-
-.app-content {
-  max-width: 825px;
-  margin: 30px auto;
-}

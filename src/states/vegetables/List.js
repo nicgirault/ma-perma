@@ -3,15 +3,15 @@ import { withStyles } from 'material-ui/styles'
 import { GridListTile, GridListTileBar } from 'material-ui/GridList'
 import Typography from 'material-ui/Typography'
 import * as Vegetable from '../../resources/Vegetable'
+import {Content} from '../../layout/ContentElements'
 import history from '../../config/history'
 
 import 'gridlex/docs/gridlex.css'
 
 const styles = theme => ({
-  container: {
-    background: theme.palette.background.paper,
-    padding: 12,
-    listStyle: 'none'
+  list: {
+    listStyle: 'none',
+    marginTop: '20px'
   },
 })
 
@@ -31,14 +31,14 @@ class VegetableList extends React.Component {
     if (!this.state.vegetables) return null
 
     return (
-      <div className={classes.container}>
+      <Content>
         <Typography type='title'>
           Bibliothèque de plantes
         </Typography>
-        <div className='grid-equalHeight'>
+        <div className={classes.list + ' grid-equalHeight'}>
           {this.state.vegetables.map((vegetable, index) => (
             <div
-              className='col-2_lg-3_md-4_sm-6_xs-6'
+              className='col-3_lg-3_md-4_sm-6_xs-6'
               key={index}
               style={{height: '200px'}}
               onClick={() => history.push(`/vegetable/${vegetable.urlName}`)}
@@ -53,7 +53,7 @@ class VegetableList extends React.Component {
             </div>
           ))}
         </div>
-      </div>
+      </Content>
     )
   }
 }
