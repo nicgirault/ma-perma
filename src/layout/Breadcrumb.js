@@ -34,7 +34,7 @@ function Breadcrumb(props) {
         path.reduce((accumulator, item, index) => {
           const breadcrumbItem = <BreadcrumbItem key={`breadcrumb-${index}`} state={item.state} label={item.label} />
           if (index === path.length - 1) return [...accumulator, breadcrumbItem]
-          return [...accumulator, breadcrumbItem, <Separator />]
+          return [...accumulator, breadcrumbItem, <Separator key={`breadcrumb-sep-${index}`} />]
         }, [])
       }
     </div>

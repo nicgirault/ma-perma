@@ -18,12 +18,14 @@ class App extends Component {
     return (
       <Router>
         <MuiThemeProvider theme={theme} history={history}>
-          <AppBar />
-          <Switch>
-            <Route path='/vegetable/:name' component={Vegetable}/>
-            <Route path='/vegetables' component={Vegetables}/>
-            <Redirect to='/vegetables' />
-          </Switch>
+          <div>
+            <AppBar />
+            <Switch>
+              <Route path='/vegetable/:name' component={Vegetable}/>
+              <Route path='/vegetables' component={Vegetables}/>
+              <Redirect to='/vegetables' />
+            </Switch>
+          </div>
         </MuiThemeProvider>
       </Router>
     )
