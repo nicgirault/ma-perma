@@ -1,3 +1,7 @@
+import axios from 'axios'
+
+import config from '../config'
+
 const vegetableList = [
   {
     name: 'Arroche',
@@ -55,4 +59,12 @@ export const get = (query) => {
 
 export const getByUrlName = (urlName) => {
   return Promise.resolve(vegetableList.find((vegetable => vegetable.urlName === urlName)))
+}
+
+export const create = (vegetable) => {
+  return axios({
+    url: `${config.API_URL}/vegetable`,
+    method: 'POST',
+    data: vegetable
+  })
 }
