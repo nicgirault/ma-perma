@@ -54,7 +54,10 @@ const vegetableList = [
 ]
 
 export const get = (query) => {
-  return Promise.resolve(vegetableList)
+  return axios({
+    url: `${config.API_URL}/vegetable`,
+    method: 'GET'
+  }).then((response) => response.data)
 }
 
 export const getByUrlName = (urlName) => {

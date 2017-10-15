@@ -20,6 +20,7 @@ class NewVegetableForm extends React.Component {
       categories: [],
       categoryId: null,
       name: null,
+      imageUrl: null,
       fetching: false,
       disabled: true
     }
@@ -34,6 +35,7 @@ class NewVegetableForm extends React.Component {
     this.setState({disabled: true})
     Vegetable.create({
       name: this.state.name,
+      imageUrl: this.state.imageUrl,
       categoryId: this.state.categoryId
     })
     .then(() => {
@@ -59,6 +61,21 @@ class NewVegetableForm extends React.Component {
             onSubmit={() => this.handleSubmit()}
           >
             <FormControl fullWidth>
+              <InputLabel htmlFor="category">Catégorie</InputLabel>
+              <Select
+                input={<Input id="category" />}
+                value={this.state.categoryId}
+                onChange={(event) => this.setState({categoryId: event.target.value})}
+              >
+                {
+                  this.state.categories.map((category) => (
+                    <MenuItem value={category.id} key={`cat-${category.id}`}>{category.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
               <TextField
                 name='name'
                 label='Nom'
@@ -68,18 +85,12 @@ class NewVegetableForm extends React.Component {
             </FormControl>
 
             <FormControl fullWidth>
-              <InputLabel htmlFor="category">Catégorie</InputLabel>
-              <Select
-                input={<Input id="category" />}
-                value={this.state.categoryId}
-                onChange={(event) => this.setState({categoryId: event.target.value})}
-              >
-                {
-                  this.state.categories.map((category) => (
-                    <MenuItem value={category.id} key={`cat-${category.id}`}>{category.label}</MenuItem>
-                  ))
-                }
-              </Select>
+              <TextField
+                name='imageUrl'
+                label='Image (url)'
+                required
+                onChange={(event) => this.setState({imageUrl: event.target.value})}
+              />
             </FormControl>
 
             <DialogActions>

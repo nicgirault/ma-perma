@@ -23,6 +23,9 @@ class VegetableList extends React.Component {
     showCreate: false
   }
   componentDidMount () {
+    this.fetchVegetables()
+  }
+  fetchVegetables () {
     Vegetable.get()
     .then((vegetables) => {
       this.setState({vegetables})
@@ -39,18 +42,18 @@ class VegetableList extends React.Component {
           Bibliothèque de plantes
         </Typography>
         <div className={classes.list + ' grid-equalHeight'}>
-          {this.state.vegetables.map((vegetable, index) => (
+          {this.state.vegetables.map((vegetable) => (
             <div
               className='col-3_lg-3_md-4_sm-6_xs-6'
-              key={index}
+              key={vegetable.id}
               style={{height: '200px'}}
-              onClick={() => history.push(`/vegetable/${vegetable.urlName}`)}
+              onClick={() => history.push(`/vegetable/${vegetable.name}`)}
             >
               <GridListTile role='button'>
-                <img src={vegetable.img} alt={vegetable.name} />
+                <img src={vegetable.imageUrl} alt={vegetable.name} />
                 <GridListTileBar
                   title={vegetable.name}
-                  subtitle={<span>{vegetable.category}</span>}
+                  subtitle={<span>{vegetable.category.name}</span>}
                 />
               </GridListTile>
             </div>
@@ -58,7 +61,10 @@ class VegetableList extends React.Component {
         </div>
         <CreateVegetableDialog
           open={this.state.showCreate}
-          onRequestClose={() => this.setState({showCreate: false})}
+          onRequestClose={() => {
+            this.setState({showCreate: false})
+            this.fetchVegetables()
+          }}
         />
         <AddButton onClick={() => this.setState({showCreate: true})} />
       </Content>
