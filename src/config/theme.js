@@ -22,9 +22,14 @@ export default createMuiTheme({
     primary
   },
   typography: {
+    fontFamily: 'Merriweather',
     title: {
       color: primary[900],
       fontSize: '32px'
+    },
+    headline: {
+      fontSize: '18px',
+      color: '#262626'
     }
   }
 })

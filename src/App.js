@@ -4,7 +4,7 @@ import AppBar from './layout/AppBar'
 import theme from './config/theme'
 import history from './config/history'
 import {
-  HashRouter as Router,
+  Router,
   Route,
   Redirect,
   Switch
@@ -16,8 +16,8 @@ import Vegetable from './states/vegetable/Layout'
 class App extends Component {
   render() {
     return (
-      <Router>
-        <MuiThemeProvider theme={theme} history={history}>
+      <Router history={history}>
+        <MuiThemeProvider theme={theme}>
           <div>
             <AppBar />
             <Switch>

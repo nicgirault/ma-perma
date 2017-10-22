@@ -18,7 +18,7 @@ class NewVegetableForm extends React.Component {
     this.state = {
       error: null,
       categories: [],
-      categoryId: null,
+      categoryId: '',
       name: null,
       imageUrl: null,
       fetching: false,
