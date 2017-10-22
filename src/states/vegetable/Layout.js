@@ -2,8 +2,9 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import * as Vegetable from '../../resources/Vegetable'
 import Breadcrumb from '../../layout/Breadcrumb'
-import {Content} from '../../layout/ContentElements'
+import { Content } from '../../layout/ContentElements'
 import Typography from 'material-ui/Typography'
+import { getIdFromSlug } from '../../services/Vegetable'
 
 const styles = {
   body: {
@@ -21,7 +22,8 @@ class Layout extends React.Component {
     vegetable: null
   }
   componentDidMount () {
-    Vegetable.getByUrlName(this.props.match.params.name)
+    const vegetableId = getIdFromSlug(this.props.match.params.vegetableSlug)
+    Vegetable.getById(vegetableId)
     .then((vegetable) => {
       this.setState({vegetable})
     })
@@ -44,7 +46,7 @@ class Layout extends React.Component {
           {this.state.vegetable.name}
         </Typography>
         <div className={classes.body}>
-          <img src={this.state.vegetable.img} alt='vegetable' className={classes.image} />
+          <img src={this.state.vegetable.imageUrl} alt='vegetable' className={classes.image} />
         </div>
       </Content>
     )

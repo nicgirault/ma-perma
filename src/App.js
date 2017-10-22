@@ -21,7 +21,7 @@ class App extends Component {
           <div>
             <AppBar />
             <Switch>
-              <Route path='/vegetable/:name' component={Vegetable}/>
+              <Route path='/vegetable/:vegetableSlug' component={Vegetable}/>
               <Route path='/vegetables' component={Vegetables}/>
               <Redirect to='/vegetables' />
             </Switch>

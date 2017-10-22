@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.17.0",
     "formsy-react": "^0.19.5",
     "gridlex": "^2.4.1",
-    "material-ui": "^1.0.0-beta.16",
+    "material-ui": "^1.0.0-beta.17",
     "material-ui-icons": "^1.0.0-beta.15",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "slug": "^0.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -3,8 +3,9 @@ import { withStyles } from 'material-ui/styles'
 import { GridListTile, GridListTileBar } from 'material-ui/GridList'
 import Typography from 'material-ui/Typography'
 import * as Vegetable from '../../resources/Vegetable'
-import {Content} from '../../layout/ContentElements'
+import { Content } from '../../layout/ContentElements'
 import history from '../../config/history'
+import { slugify } from '../../services/Vegetable'
 import AddButton from '../../layout/atoms/AddButton'
 import CreateVegetableDialog from './Create'
 
@@ -47,7 +48,7 @@ class VegetableList extends React.Component {
               className='col-3_lg-3_md-4_sm-6_xs-6'
               key={vegetable.id}
               style={{height: '200px'}}
-              onClick={() => history.push(`/vegetable/${vegetable.name}`)}
+              onClick={() => history.push(`/vegetable/${slugify(vegetable)}`)}
             >
               <GridListTile role='button'>
                 <img src={vegetable.imageUrl} alt={vegetable.name} />
