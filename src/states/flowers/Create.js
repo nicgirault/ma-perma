@@ -9,34 +9,38 @@ import Input, { InputLabel } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 import TextField from 'material-ui/TextField'
 
-import * as VegetableCategory from '../../resources/VegetableCategory'
-import * as Vegetable from '../../resources/Vegetable'
+import * as Flower from '../../resources/Flower'
 
-class NewVegetableForm extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      error: null,
-      categories: [],
-      categoryId: '',
-      name: null,
-      imageUrl: null,
-      fetching: false,
-      disabled: true
-    }
-  }
-
-  componentDidMount () {
-    VegetableCategory.find()
-    .then((categories) => this.setState({categories}))
+class NewFlowerForm extends React.Component {
+  state = {
+    error: null,
+    types: [
+      {
+        value: 'VIVACE',
+        label: 'Vivace'
+      },
+      {
+        value: 'BULBEUSE',
+        label: 'Bulbeuse'
+      },
+      {
+        value: 'GRAMINEE',
+        label: 'Graminée'
+      }
+    ],
+    type: null,
+    name: null,
+    imageUrl: null,
+    fetching: false,
+    disabled: true
   }
 
   handleSubmit () {
     this.setState({disabled: true})
-    Vegetable.create({
+    Flower.create({
       name: this.state.name,
       imageUrl: this.state.imageUrl,
-      categoryId: this.state.categoryId
+      type: this.state.type
     })
     .then(() => {
       this.props.onRequestClose()
@@ -61,15 +65,15 @@ class NewVegetableForm extends React.Component {
             onSubmit={() => this.handleSubmit()}
           >
             <FormControl fullWidth>
-              <InputLabel htmlFor="category">Catégorie</InputLabel>
+              <InputLabel htmlFor="type">Type</InputLabel>
               <Select
-                input={<Input id="category" />}
-                value={this.state.categoryId}
-                onChange={(event) => this.setState({categoryId: event.target.value})}
+                input={<Input id="type" />}
+                value={this.state.type}
+                onChange={(event) => this.setState({type: event.target.value})}
               >
                 {
-                  this.state.categories.map((category) => (
-                    <MenuItem value={category.id} key={`cat-${category.id}`}>{category.name}</MenuItem>
+                  this.state.types.map((type) => (
+                    <MenuItem value={type.value} key={`cat-${type.value}`}>{type.label}</MenuItem>
                   ))
                 }
               </Select>
@@ -107,4 +111,4 @@ class NewVegetableForm extends React.Component {
   }
 }
 
-export default NewVegetableForm
+export default NewFlowerForm

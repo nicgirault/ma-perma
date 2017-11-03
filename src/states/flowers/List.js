@@ -1,32 +1,32 @@
 import React from 'react'
 import Typography from 'material-ui/Typography'
-import * as Vegetable from '../../resources/Vegetable'
+import * as Flower from '../../resources/Flower'
 import { Content } from '../../layout/ContentElements'
 import history from '../../config/history'
-import { slugify } from '../../services/Vegetable'
+import { slugify } from '../../services/Flower'
 import AddButton from '../../layout/atoms/AddButton'
 import Grid from '../../layout/Grid'
-import VegetableGridItem from '../common/VegetableGridItem'
-import CreateVegetableDialog from './Create'
+import FlowerGridItem from '../common/FlowerGridItem'
+import CreateFlowerDialog from './Create'
 
 import 'gridlex/docs/gridlex.css'
 
-class VegetableList extends React.Component {
+class FlowerList extends React.Component {
   state = {
-    vegetables: null,
+    flowers: null,
     showCreate: false
   }
   componentDidMount () {
-    this.fetchVegetables()
+    this.fetchFlowers()
   }
-  fetchVegetables () {
-    Vegetable.get()
-    .then((vegetables) => {
-      this.setState({vegetables})
+  fetchFlowers () {
+    Flower.get()
+    .then((flowers) => {
+      this.setState({flowers})
     })
   }
   render () {
-    if (!this.state.vegetables) return null
+    if (!this.state.flowers) return null
 
     return (
       <Content>
@@ -34,19 +34,19 @@ class VegetableList extends React.Component {
           Bibliothèque de plantes
         </Typography>
         <Grid>
-          {this.state.vegetables.map((vegetable) => (
-            <VegetableGridItem
-              key={vegetable.id}
-              vegetable={vegetable}
-              onClick={() => history.push(`/vegetable/${slugify(vegetable)}`)}
+          {this.state.flowers.map((flower) => (
+            <FlowerGridItem
+              key={flower.id}
+              flower={flower}
+              onClick={() => history.push(`/flower/${slugify(flower)}`)}
             />
           ))}
         </Grid>
-        <CreateVegetableDialog
+        <CreateFlowerDialog
           open={this.state.showCreate}
           onRequestClose={() => {
             this.setState({showCreate: false})
-            this.fetchVegetables()
+            this.fetchFlowers()
           }}
         />
         <AddButton onClick={() => this.setState({showCreate: true})} />
@@ -55,4 +55,4 @@ class VegetableList extends React.Component {
   }
 }
 
-export default VegetableList
+export default FlowerList

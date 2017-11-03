@@ -1,7 +1,7 @@
 import slug from 'slug'
 
-export const slugify = (vegetable) => {
-  return `${slug(vegetable.name)}-${vegetable.id}`
+export const slugify = (flower) => {
+  return `${slug(flower.name)}-${flower.id}`
 }
 
 export const getIdFromSlug = (slug) => {

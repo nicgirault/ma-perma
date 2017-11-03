@@ -10,8 +10,8 @@ import {
   Switch
 } from 'react-router-dom'
 
-import Vegetables from './states/vegetables/List'
-import Vegetable from './states/vegetable/Layout'
+import Flowers from './states/flowers/List'
+import Flower from './states/flower/Layout'
 
 class App extends Component {
   render() {
@@ -21,9 +21,18 @@ class App extends Component {
           <div>
             <AppBar />
             <Switch>
-              <Route path='/vegetable/:vegetableSlug' component={Vegetable}/>
-              <Route path='/vegetables' component={Vegetables}/>
-              <Redirect to='/vegetables' />
+              <Route
+                path='/flower/:flowerSlug'
+                component={({match, ...props}) => (
+                  <Flower
+                    {...props}
+                    flowerSlug={match.params.flowerSlug}
+                    key={match.params.flowerSlug}
+                  />
+                )}
+              />
+              <Route path='/flowers' component={Flowers}/>
+              <Redirect to='/flowers' />
             </Switch>
           </div>
         </MuiThemeProvider>

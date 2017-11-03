@@ -1,21 +1,21 @@
 import React from 'react'
 import { GridListTile, GridListTileBar } from 'material-ui/GridList'
 
-class VegetableGridItem extends React.Component {
+class FlowerGridItem extends React.Component {
   render () {
-    const {vegetable, onClick} = this.props
+    const {flower, onClick} = this.props
     return (
       <div
         className='col-3_lg-3_md-4_sm-6_xs-6'
-        key={vegetable.id}
+        key={flower.id}
         style={{height: '200px'}}
         onClick={onClick}
       >
         <GridListTile role='button'>
-          <img src={vegetable.imageUrl} alt={vegetable.name} />
+          <img src={flower.imageUrl} alt={flower.name} />
           <GridListTileBar
-            title={vegetable.name}
-            subtitle={<span>{vegetable.category.name}</span>}
+            title={flower.name}
+            subtitle={<span>{flower.type}</span>}
           />
         </GridListTile>
       </div>
@@ -23,4 +23,4 @@ class VegetableGridItem extends React.Component {
   }
 }
 
-export default VegetableGridItem
+export default FlowerGridItem

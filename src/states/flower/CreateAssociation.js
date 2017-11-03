@@ -4,31 +4,30 @@ import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/D
 import Autocomplete from '../../layout/Autocomplete'
 
 import * as Association from '../../resources/Association'
-import * as Vegetable from '../../resources/Vegetable'
+import * as Flower from '../../resources/Flower'
 
-class NewVegetableAssociationForm extends React.Component {
+class NewFlowerAssociationForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       error: null,
       suggestions: [],
-      vegetableId: null,
+      flowerId: null,
       fetching: false,
       disabled: true
     }
   }
 
   componentDidMount () {
-    Vegetable.get()
-    .then((vegetables) => {
-      const suggestions = vegetables
-        .filter((vegetable) => {
-          if (vegetable.id === this.props.vegetable.id) return false
-          if (this.props.vegetable.positiveAssociations.indexOf(vegetable.id) > -1) return false
-          if (this.props.vegetable.negativeAssociations.indexOf(vegetable.id) > -1) return false
-          return true
-        })
-        .map((vegetable) => ({label: vegetable.name, id: vegetable.id}))
+    Flower.get()
+    .then((flowers) => {
+      const associatedFlowers = this.props.flower.relations
+      .reduce((acc, relation) => {
+        return [...acc, relation.flowerAId, relation.flowerBId]
+      }, [])
+      const suggestions = flowers
+        .filter((flower) => associatedFlowers.indexOf(flower.id) === -1)
+        .map((flower) => ({label: flower.name, id: flower.id}))
       this.setState({suggestions})
     })
   }
@@ -36,9 +35,9 @@ class NewVegetableAssociationForm extends React.Component {
   handleSubmit () {
     this.setState({disabled: true})
     Association.create(
-      this.props.vegetable.id,
-      this.state.vegetableId,
-      this.props.isPositive
+      this.props.flower.id,
+      this.state.flowerId,
+      this.props.type
     )
     .then(() => {
       this.props.onRequestClose()
@@ -53,7 +52,7 @@ class NewVegetableAssociationForm extends React.Component {
   }
 
   render () {
-    const {isPositive, vegetableId, ...dialogProps} = this.props
+    const {type, flowerId, ...dialogProps} = this.props
     return (
       <Dialog
         {...dialogProps}
@@ -63,7 +62,7 @@ class NewVegetableAssociationForm extends React.Component {
           <Autocomplete
             placeholder='Chercher une plante'
             onSuggestionSelected={(event, {suggestion}) => {
-              this.setState({vegetableId: suggestion.id})
+              this.setState({flowerId: suggestion.id})
             }}
             suggestions={this.state.suggestions}
           />
@@ -72,7 +71,7 @@ class NewVegetableAssociationForm extends React.Component {
               raised
               color='primary'
               type='submit'
-              disabled={this.state.vegetableId === null}
+              disabled={this.state.flowerId === null}
               onClick={() => this.handleSubmit()}
             >Ajouter</Button>
           </DialogActions>
@@ -82,4 +81,4 @@ class NewVegetableAssociationForm extends React.Component {
   }
 }
 
-export default NewVegetableAssociationForm
+export default NewFlowerAssociationForm

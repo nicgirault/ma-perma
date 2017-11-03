@@ -2,13 +2,10 @@ import axios from 'axios'
 
 import config from '../config'
 
-export const create = (vegetableAId, vegetableBId, isPositive) => {
+export const create = (flowerAId, flowerBId, type) => {
   return axios({
-    url: `${config.API_URL}/vegetable/${vegetableAId}/association`,
+    url: `${config.API_URL}/relation`,
     method: 'POST',
-    data: {
-      vegetableIdToAssociate: vegetableBId,
-      isPositive: isPositive
-    }
+    data: { flowerAId, flowerBId, type }
   })
 }
