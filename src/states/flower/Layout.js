@@ -13,6 +13,7 @@ import Grid from '../../layout/Grid'
 import FlowerGridItem from '../common/FlowerGridItem'
 import Calendar from './Calendar'
 import Properties from './Properties'
+import Illustration from './Illustration'
 import CreateAssociationDialog from './CreateAssociation'
 
 const styles = {
@@ -65,6 +66,10 @@ class Layout extends React.Component {
       this.setState({flower, flowersMap})
     })
   }
+  updateImage (newImageUrl) {
+    Flower.update(this.state.flower.id, {imageUrl: newImageUrl})
+    .then(() => this.fetchContent())
+  }
   render () {
     if (!this.state.flower) return null
     const {classes} = this.props
@@ -83,7 +88,10 @@ class Layout extends React.Component {
           {this.state.flower.name}
         </Typography>
         <div className={classes.body}>
-          <img src={this.state.flower.imageUrl} alt='flower' className={classes.image} />
+          <Illustration
+            src={this.state.flower.imageUrl}
+            handleUpdate={(newImageUrl) => this.updateImage(newImageUrl)}
+          />
           <Properties properties={this.state.flower.properties} />
           <div className={classes.calendars}>
             {

@@ -23,3 +23,11 @@ export const create = (flower) => {
     data: flower
   })
 }
+
+export const update = (flowerId, toUpdate) => {
+  return axios({
+    url: `${config.API_URL}/flower/${flowerId}`,
+    method: 'PATCH',
+    data: toUpdate
+  })
+}

@@ -1,75 +1,138 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import { withStyles } from 'material-ui/styles'
-import Popover from 'material-ui/Popover'
+import IconButton from 'material-ui/IconButton'
 import EditIcon from 'material-ui-icons/ModeEdit'
-
+import CancelIcon from 'material-ui-icons/Cancel'
+import SaveIcon from 'material-ui-icons/CheckCircle'
+import TextField from 'material-ui/TextField'
 
 const styles = theme => ({
   root: {
-    cursor: 'pointer',
     position: 'relative',
     flexGrow: 0,
     flexShrink: 0,
-    '&:hover img': {
-      filter: 'grayscale(50%)',
-    }
   },
   image: {
     position: 'absolute',
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    transition: '.3s ease-in-out',
-    filter: 'grayscale(0)',
   },
-  overlay: {
+  editZone: {
     position: 'absolute',
-    transition: '.3s ease-in-out',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity: 0,
+    top: 0,
+    right: 0,
+    boxSizing: 'border-box',
+    padding: 5,
     zIndex: 1,
-    '&:hover': {
-      opacity: 1,
-    }
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    height: 40,
+  },
+  iconButton: {
+    width: 30,
+    height: 30,
+    position: 'absolute',
+    top: 5,
+    right: 5
+  },
+  textField: {
+    position: 'absolute',
+    top: 0,
+    left: 5,
   }
 })
 
 class Illustration extends React.Component {
   state = {
-    editing: false
+    editing: false,
+    showEdit: false,
+    editedSrc: ''
+  }
+  componentDidMount () {
+    this.setState({editedSrc: this.props.src})
+  }
+  handleSave () {
+    this.props.handleUpdate(this.state.editedSrc)
+    this.setState({editing: false})
   }
   render () {
     const {src, width, height, classes} = this.props
     return (
-      <div className={classes.root} style={{width: width || 300, height: height || 300}}>
+      <div
+        className={classes.root}
+        style={{width: width || 300, height: height || 300}}
+        onMouseEnter={() => this.setState({showEdit: true})}
+        onMouseLeave={() => this.setState({showEdit: false})}
+      >
         <img
           src={src} alt='flower'
           className={classes.image}
-          style={{width: width || 300, height: height || 300}}
         />
         <div
-          className={classes.overlay}
-          onClick={() => this.setState({editing: true})}
+          className={classes.editZone}
+          style={{
+            opacity: this.state.showEdit ? 1 : 0,
+            width: this.state.editing ? '100%' : '40px'
+          }}
         >
-          <EditIcon
-            ref={(icon) => this.icon = icon}
+          <TextField
+          className={classes.textField}
             style={{
-              width: 60,
-              height: 60,
+              display: this.state.editing ? 'block' : 'none'
             }}
+            value={this.state.editedSrc}
+            onChange={(event) => this.setState({editedSrc: event.target.value})}
           />
+          <IconButton
+            aria-label="Edit image"
+            color="primary"
+            onClick={() => this.setState({editing: true})}
+            className={classes.iconButton}
+            style={{
+              display: this.state.editing ? 'none' : 'inline-block'
+            }}
+          >
+            <EditIcon
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </IconButton>
+          <IconButton
+            aria-label="save edit image"
+            color="primary"
+            className={classes.iconButton}
+            style={{
+              display: this.state.editing ? 'inline-block' : 'none',
+              right: 35
+            }}
+            onClick={() => this.handleSave()}
+          >
+            <SaveIcon
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </IconButton>
+          <IconButton
+            aria-label="cancel edit image"
+            color="primary"
+            onClick={() => this.setState({editing: false, editedSrc: this.props.src})}
+            className={classes.iconButton}
+            style={{
+              display: this.state.editing ? 'inline-block' : 'none'
+            }}
+          >
+            <CancelIcon
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </IconButton>
         </div>
-        <Popover
-          open={this.state.editing}
-          anchorEl={findDOMNode(this.icon)}
-          onRequestClose={() => this.setState({editing: false})}
-        >toto
-        </Popover>
       </div>
     )
   }
