@@ -5,7 +5,7 @@ const styles = {
   container: {
     margin: '30px auto',
     padding: '0 .5em',
-    maxWidth: '825px'
+    // maxWidth: '825px'
   }
 }
 

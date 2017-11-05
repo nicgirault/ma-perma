@@ -56,11 +56,11 @@ class Illustration extends React.Component {
     this.setState({editing: false})
   }
   render () {
-    const {src, width, height, classes} = this.props
+    const {src, classes} = this.props
     return (
       <div
         className={classes.root}
-        style={{width: width || 300, height: height || 300}}
+        style={{minHeight: 200}}
         onMouseEnter={() => this.setState({showEdit: true})}
         onMouseLeave={() => this.setState({showEdit: false})}
       >

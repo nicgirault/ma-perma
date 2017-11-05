@@ -5,6 +5,8 @@
   "dependencies": {
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.17.0",
+    "commonmark": "^0.28.1",
+    "commonmark-react-renderer": "^4.3.3",
     "formsy-react": "^0.19.5",
     "gridlex": "^2.4.1",
     "material-ui": "^1.0.0-beta.19",
