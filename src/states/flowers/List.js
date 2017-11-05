@@ -4,11 +4,11 @@ import * as Flower from '../../resources/Flower'
 import { Content } from '../../layout/ContentElements'
 import history from '../../config/history'
 import { slugify } from '../../services/Flower'
-import AddButton from '../../layout/atoms/AddButton'
 import Grid from '../../layout/Grid'
 import FlowerGridItem from '../common/FlowerGridItem'
 import CreateFlowerDialog from './Create'
 import SearchField from './SearchField'
+import AddFlower from '../common/AddFlower'
 
 import 'gridlex/docs/gridlex.css'
 
@@ -40,6 +40,7 @@ class FlowerList extends React.Component {
           onChange={(event) => this.setState({query: event.target.value})}
         />
         <Grid>
+          <AddFlower onClick={() => this.setState({showCreate: true})} />
           {
             this.state.flowers
             .filter(flower => flower.name.match(new RegExp(this.state.query, 'i')))
@@ -59,7 +60,6 @@ class FlowerList extends React.Component {
             this.fetchFlowers()
           }}
         />
-        <AddButton onClick={() => this.setState({showCreate: true})} />
       </Content>
     )
   }

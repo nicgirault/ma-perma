@@ -8,26 +8,14 @@ import Select from 'material-ui/Select'
 import Input, { InputLabel } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 import TextField from 'material-ui/TextField'
+import { typeLabels } from '../../services/Flower'
 
 import * as Flower from '../../resources/Flower'
 
 class NewFlowerForm extends React.Component {
   state = {
     error: null,
-    types: [
-      {
-        value: 'VIVACE',
-        label: 'Vivace'
-      },
-      {
-        value: 'BULBEUSE',
-        label: 'Bulbeuse'
-      },
-      {
-        value: 'GRAMINEE',
-        label: 'Graminée'
-      }
-    ],
+    types: Object.keys(typeLabels).map((value) => ({value, label: typeLabels[value]})),
     type: null,
     name: null,
     imageUrl: null,

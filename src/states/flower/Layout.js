@@ -7,10 +7,9 @@ import Typography from 'material-ui/Typography'
 import { getIdFromSlug } from '../../services/Flower'
 import history from '../../config/history'
 import { slugify } from '../../services/Flower'
-import IconButton from 'material-ui/IconButton'
-import AddIcon from 'material-ui-icons/AddCircleOutline'
 import Grid from '../../layout/Grid'
 import FlowerGridItem from '../common/FlowerGridItem'
+import AddRelationButton from '../common/AddFlower'
 import Calendar from './Calendar'
 import Properties from './Properties'
 import Illustration from './Illustration'
@@ -123,14 +122,11 @@ class Layout extends React.Component {
             <Typography type='headline'>
               Associations à privilégier
             </Typography>
-            <IconButton
-              aria-label="Add positive association"
-              onClick={() => this.setState({showAssociation: true, type: 'ASSOCIATE_WITH'})}
-            >
-              <AddIcon />
-            </IconButton>
           </div>
           <Grid>
+            <AddRelationButton
+              onClick={() => this.setState({showAssociation: true, type: 'ASSOCIATE_WITH'})}
+            />
             {
               this.state.flower.relations
               .filter((relation) => relation.type === 'ASSOCIATE_WITH')
@@ -150,14 +146,11 @@ class Layout extends React.Component {
             <Typography type='headline'>
               Associations à éviter
             </Typography>
-            <IconButton
-              aria-label="Add negative association"
-              onClick={() => this.setState({showAssociation: true, type: 'DONT_ASSOCIATE_WITH'})}
-            >
-              <AddIcon />
-            </IconButton>
           </div>
           <Grid>
+            <AddRelationButton
+              onClick={() => this.setState({showAssociation: true, type: 'DONT_ASSOCIATE_WITH'})}
+            />
             {
               this.state.flower.relations
               .filter((relation) => relation.type === 'DONT_ASSOCIATE_WITH')
