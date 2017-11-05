@@ -97,6 +97,13 @@ class Layout extends React.Component {
             {
               this.state.flower.properties
               .filter(flowerProperty => flowerProperty.property.type === 'CALENDAR')
+              .sort((a, b) => {
+                const aFirstMonth = parseInt(a.value.split('-'), 10)
+                const bFirstMonth = parseInt(b.value.split('-'), 10)
+                if (aFirstMonth > bFirstMonth) return 1
+                if (aFirstMonth < bFirstMonth) return -1
+                return 0
+              })
               .map((flowerProperty, index) => (
                 <div key={`calendar-${index}`} className={classes.calendar}>
                   <Calendar
