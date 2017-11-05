@@ -33,6 +33,8 @@ jobs:
               sudo apt-get install python-dev
               sudo pip install awscli
               aws --region eu-central-1 s3 sync build s3://ma-perma.org --delete
+              aws configure set preview.cloudfront true
+              aws --region eu-central-1 cloudfront create-invalidation --distribution-id E16SFL4G7QOHR0 --paths "/*"
             else
               echo "Not master branch so not deploying"
             fi
