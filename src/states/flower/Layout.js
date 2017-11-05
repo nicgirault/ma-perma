@@ -9,11 +9,12 @@ import history from '../../config/history'
 import { slugify } from '../../services/Flower'
 import Grid from '../../layout/Grid'
 import FlowerGridItem from '../common/FlowerGridItem'
-import AddRelationButton from '../common/AddFlower'
+import AddButton from '../common/AddFlower'
 import Calendar from './Calendar'
 import Properties from './Properties'
 import Illustration from './Illustration'
 import CreateAssociationDialog from './CreateAssociation'
+import CreateVarietyDialog from './CreateVariety'
 
 const styles = {
   body: {
@@ -36,10 +37,9 @@ const styles = {
   associations: {
     marginTop: '48px'
   },
-  associationsHeader: {
-    display: 'flex',
-    alignItems: 'center'
-  }
+  varieties: {
+    marginTop: '48px'
+  },
 }
 
 class Layout extends React.Component {
@@ -47,6 +47,7 @@ class Layout extends React.Component {
     flower: null,
     flowersMap: null,
     showAssociation: false,
+    showVariety: false,
     type: null
   }
   componentDidMount () {
@@ -116,15 +117,12 @@ class Layout extends React.Component {
           </div>
         </div>
 
-
         <div className={classes.associations}>
-          <div className={classes.associationsHeader}>
-            <Typography type='headline'>
-              Associations à privilégier
-            </Typography>
-          </div>
+          <Typography type='headline'>
+            Associations à privilégier
+          </Typography>
           <Grid>
-            <AddRelationButton
+            <AddButton
               onClick={() => this.setState({showAssociation: true, type: 'ASSOCIATE_WITH'})}
             />
             {
@@ -142,13 +140,11 @@ class Layout extends React.Component {
               })
             }
           </Grid>
-          <div className={classes.associationsHeader}>
-            <Typography type='headline'>
-              Associations à éviter
-            </Typography>
-          </div>
+          <Typography type='headline'>
+            Associations à éviter
+          </Typography>
           <Grid>
-            <AddRelationButton
+            <AddButton
               onClick={() => this.setState({showAssociation: true, type: 'DONT_ASSOCIATE_WITH'})}
             />
             {
@@ -167,6 +163,30 @@ class Layout extends React.Component {
             }
           </Grid>
         </div>
+
+        <div className={classes.varieties}>
+          <Typography type='headline'>
+            Variétés
+          </Typography>
+          <Grid>
+            <AddButton
+              onClick={() => this.setState({showVariety: true})}
+            />
+            {
+              this.state.flower.varieties
+              .map((variety, index) => {
+                return (
+                  <FlowerGridItem
+                    key={`variety-${index}`}
+                    flower={variety}
+                    onClick={() => history.push(`/flower/${this.props.flowerSlug}/${slugify(variety)}`)}
+                  />
+                )
+              })
+            }
+          </Grid>
+        </div>
+
         <CreateAssociationDialog
           open={this.state.showAssociation}
           onRequestClose={() => {
@@ -175,6 +195,15 @@ class Layout extends React.Component {
           }}
           type={this.state.type}
           flower={this.state.flower}
+        />
+
+        <CreateVarietyDialog
+          open={this.state.showVariety}
+          onRequestClose={() => {
+            this.setState({showVariety: false})
+            this.fetchContent()
+          }}
+          flowerId={this.state.flower.id}
         />
       </Content>
     )

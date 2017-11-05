@@ -12,6 +12,7 @@ import {
 
 import Flowers from './states/flowers/List'
 import Flower from './states/flower/Layout'
+import Variety from './states/variety/Layout'
 
 class App extends Component {
   render() {
@@ -21,6 +22,17 @@ class App extends Component {
           <div>
             <AppBar />
             <Switch>
+              <Route
+                path='/flower/:flowerSlug/:varietySlug'
+                component={({match, ...props}) => (
+                  <Variety
+                    {...props}
+                    flowerSlug={match.params.flowerSlug}
+                    varietySlug={match.params.varietySlug}
+                    key={`${match.params.flowerSlug}-${match.params.varietySlug}`}
+                  />
+                )}
+              />
               <Route
                 path='/flower/:flowerSlug'
                 component={({match, ...props}) => (
