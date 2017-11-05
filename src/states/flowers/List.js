@@ -8,13 +8,15 @@ import AddButton from '../../layout/atoms/AddButton'
 import Grid from '../../layout/Grid'
 import FlowerGridItem from '../common/FlowerGridItem'
 import CreateFlowerDialog from './Create'
+import SearchField from './SearchField'
 
 import 'gridlex/docs/gridlex.css'
 
 class FlowerList extends React.Component {
   state = {
     flowers: null,
-    showCreate: false
+    showCreate: false,
+    query: ''
   }
   componentDidMount () {
     this.fetchFlowers()
@@ -33,14 +35,22 @@ class FlowerList extends React.Component {
         <Typography type='title'>
           Bibliothèque de plantes
         </Typography>
+        <SearchField
+          value={this.state.query}
+          onChange={(event) => this.setState({query: event.target.value})}
+        />
         <Grid>
-          {this.state.flowers.map((flower) => (
-            <FlowerGridItem
-              key={flower.id}
-              flower={flower}
-              onClick={() => history.push(`/flower/${slugify(flower)}`)}
-            />
-          ))}
+          {
+            this.state.flowers
+            .filter(flower => flower.name.match(new RegExp(this.state.query, 'i')))
+            .map((flower) => (
+              <FlowerGridItem
+                key={flower.id}
+                flower={flower}
+                onClick={() => history.push(`/flower/${slugify(flower)}`)}
+              />
+            ))
+          }
         </Grid>
         <CreateFlowerDialog
           open={this.state.showCreate}
